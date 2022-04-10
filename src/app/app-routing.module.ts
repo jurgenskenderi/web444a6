@@ -9,18 +9,38 @@ import { SearchResultComponent } from './search-result/search-result.component';
 import { FavouritesComponent } from './favourites/favourites.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
-
+import { GuardAuthService } from './guard-auth.service';
 
 const routes: Routes = [
-  { path: 'newReleases', component: NewReleasesComponent },
-  { path: 'artist/:id', component: ArtistDiscographyComponent },
-  { path: 'album/:id', component: AlbumComponent },
-  { path: 'about', component: AboutComponent },
+  {
+    path: 'newReleases',
+    component: NewReleasesComponent,
+    canActivate: [GuardAuthService],
+  },
+  {
+    path: 'artist/:id',
+    component: ArtistDiscographyComponent,
+    canActivate: [GuardAuthService],
+  },
+  {
+    path: 'album/:id',
+    component: AlbumComponent,
+    canActivate: [GuardAuthService],
+  },
+  { path: 'about', component: AboutComponent, canActivate: [GuardAuthService] },
   { path: '', redirectTo: '/newReleases', pathMatch: 'full' },
-  { path: 'search', component: SearchResultComponent },
-  { path: 'favourites', component: FavouritesComponent },
-  { path: "register", component: RegisterComponent},
-  { path: "login", component: LoginComponent},
+  {
+    path: 'search',
+    component: SearchResultComponent,
+    canActivate: [GuardAuthService],
+  },
+  {
+    path: 'favourites',
+    component: FavouritesComponent,
+    canActivate: [GuardAuthService],
+  },
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
   { path: '**', component: NotFoundComponent },
 ];
 @NgModule({
